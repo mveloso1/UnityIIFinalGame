@@ -9,23 +9,15 @@ public class RaycastFromPlayer : MonoBehaviour
     bool holdingItem = false;
     GameObject heldObj;
 
-    //public bool redBox = false;
-    //public bool blueBox = false;
-    //public bool prism = false;
-
-    //public GameObject doorButton;
-    //public Animator leftDoor;
-    //public Animator rightDoor;
+    
     public Animator templeDoor;
 
-    //bool doorUnlocked = false;
     bool templeDoorUnlocked = false;
 
     public AudioClip puzzleSolve;
     private AudioSource audioSource;
 
     MeshRenderer hitObj;
-    //public GameObject messageBox;
     //public GameObject bow;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,60 +29,27 @@ public class RaycastFromPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position, transform.forward * raycastDistance, Color.green);
 
-        //if(redBox && blueBox) //&& prism
+        //// Make pickup item glow if possible
+        //Debug.DrawRay(transform.position, transform.forward * raycastDistance, Color.green);
+        //RaycastHit hit;
+        //if (Physics.Raycast(transform.position, transform.forward, out hit, 3.0f))
         //{
-        //   // doorButton.GetComponent<Renderer>().material.color = Color.green;
-        //    doorUnlocked = true;
-        //    templeDoorUnlocked = true;
-        //   // AudioSource.PlayClipAtPoint(puzzleSolve, transform.position);
+        //    if (hit.collider.tag == "PickupItem" && !holdingItem)
+        //    {
+        //        hitObj = hit.collider.GetComponent<MeshRenderer>();
+        //        hitObj.materials[1].SetFloat("_Scale", 1.03f);
+        //    }
 
         //}
-        //else
+        //else // Remove glow when not not hovered over
         //{
-        //    //doorButton.GetComponent<Renderer>().material.color = Color.red;
-        //    doorUnlocked = false;
-        //    templeDoorUnlocked = false;
+        //    if (hitObj != null)
+        //    {
+        //        hitObj.materials[1].SetFloat("_Scale", 1.0f);
+        //        hitObj = null;
+        //    }
         //}
-
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 3.0f))
-        {
-            //if (hit.collider.tag == "PickupItem" && !holdingItem)
-            //{
-            //    hitObj = hit.collider.GetComponent<MeshRenderer>();
-            //    hitObj.materials[1].SetFloat("_Scale", 1.03f);
-            //}
-            //if(hit.collider.tag == "DoorButton" && doorUnlocked)
-            //{
-            //    hitObj = hit.collider.GetComponent<MeshRenderer>();
-            //    hitObj.materials[1].SetFloat("_Scale", 1.03f);
-            //    messageBox.SetActive(true);
-            //}
-            //else if (hit.collider.tag == "Archer")
-            //{
-            //    messageBox.SetActive(true);
-            //}
-            //else
-            //{
-            //    messageBox.SetActive(false);
-            //}
-            
-        }
-        else
-        {
-            //if (hitObj != null)
-            //{
-            //    hitObj.materials[1].SetFloat("_Scale", 1.0f);
-            //    hitObj = null;
-            //    if(messageBox.activeSelf)
-            //    {
-            //        messageBox.SetActive(false);
-            //    }
-            //}
-        }
 
     }
 
@@ -129,10 +88,14 @@ public class RaycastFromPlayer : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out hit, raycastDistance))
         {
            // 
-           if(hit.collider.gameObject.TryGetComponent<BehaviorOnShot>(out BehaviorOnShot behaviorScript))
+           //if(hit.collider.gameObject.TryGetComponent<BehaviorOnShot>(out BehaviorOnShot behaviorScript))
+           if(hit.collider.gameObject.TryGetComponent<BehaviorScript>(out BehaviorScript behaviorScript))
             {
-                behaviorScript.Shot();
-                Debug.Log(hit.collider.name + " was hit successfully!");
+                if(behaviorScript.playerShot)
+                {
+                    behaviorScript.Trigger();
+                    Debug.Log(hit.collider.name + " was hit successfully!");
+                }
             }
             else
                 Debug.Log(hit.collider.name + " was hit, did not trigger!");
