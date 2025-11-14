@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/AdversaryRoom.unity
     guid: 282c52f9b22ad7d4c9da98423448baca
   - enabled: 1
-    path: Assets/Scenes/EscapeRoom.unity
+    path: Assets/Scenes/PlatformRoom.unity
     guid: e66b6c0543cad2348846e6d0b4968a5a
   - enabled: 1
     path: Assets/Scenes/Win.unity
