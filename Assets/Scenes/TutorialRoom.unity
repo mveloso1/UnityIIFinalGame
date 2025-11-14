@@ -369,9 +369,11 @@ GameObject:
   - component: {fileID: 413293470}
   - component: {fileID: 413293469}
   - component: {fileID: 413293468}
+  - component: {fileID: 413293472}
+  - component: {fileID: 413293473}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: PickupItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -422,7 +424,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5712b907f76af264fa6c6afe2bcec30f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -468,6 +470,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &413293472
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413293467}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &413293473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413293467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242ec999da1868e48b16b6c81d99503b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupObj
+  destinationObj: {fileID: 1706619733}
 --- !u!1 &651608312
 GameObject:
   m_ObjectHideFlags: 0
@@ -11332,8 +11374,8 @@ GameObject:
   - component: {fileID: 1019169564}
   - component: {fileID: 1019169563}
   - component: {fileID: 1019169562}
-  - component: {fileID: 1019169567}
   - component: {fileID: 1019169566}
+  - component: {fileID: 1019169567}
   m_Layer: 0
   m_Name: Target
   m_TagString: Untagged
@@ -11456,10 +11498,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1019169561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95d5dcb78c8255b42b9d4a096bd321c0, type: 3}
+  m_Script: {fileID: 11500000, guid: d5f9980014f32c540a2edf71ba715ead, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BehaviorOnShot
+  m_EditorClassIdentifier: Assembly-CSharp::BehaviorScript
+  playerInteract: 1
+  playerShot: 1
   removeObjScript: {fileID: 1019169566}
+  moveObjScript: {fileID: 0}
 --- !u!1 &1213395252
 GameObject:
   m_ObjectHideFlags: 0
@@ -11472,6 +11517,9 @@ GameObject:
   - component: {fileID: 1213395255}
   - component: {fileID: 1213395254}
   - component: {fileID: 1213395253}
+  - component: {fileID: 1213395259}
+  - component: {fileID: 1213395258}
+  - component: {fileID: 1213395257}
   m_Layer: 0
   m_Name: PressurePlate
   m_TagString: Untagged
@@ -11525,7 +11573,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5712b907f76af264fa6c6afe2bcec30f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11571,6 +11619,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1213395257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213395252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d65db5758c993342a93856c462e8400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ColliderTrigger
+  triggerTag: PickupItem
+  behaviorScript: {fileID: 1213395258}
+--- !u!114 &1213395258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213395252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f9980014f32c540a2edf71ba715ead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BehaviorScript
+  playerInteract: 0
+  playerShot: 0
+  removeObjScript: {fileID: 0}
+  moveObjScript: {fileID: 1716223795}
+--- !u!65 &1213395259
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213395252}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1652722409
 GameObject:
   m_ObjectHideFlags: 0
@@ -11682,6 +11781,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1706619733 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8490355732302357810, guid: db87897b71788a242be2364dd3c35e00, type: 3}
+  m_PrefabInstance: {fileID: 1709697437}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1709697437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11690,6 +11794,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 701110653876707231, guid: db87897b71788a242be2364dd3c35e00, type: 3}
+      propertyPath: sensitivityX
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 701110653876707231, guid: db87897b71788a242be2364dd3c35e00, type: 3}
+      propertyPath: sensitivityY
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 871268747453703451, guid: db87897b71788a242be2364dd3c35e00, type: 3}
+      propertyPath: sensitivityX
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 871268747453703451, guid: db87897b71788a242be2364dd3c35e00, type: 3}
+      propertyPath: sensitivityY
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2803326877495376470, guid: db87897b71788a242be2364dd3c35e00, type: 3}
       propertyPath: m_Name
       value: Player
@@ -11751,6 +11871,7 @@ GameObject:
   - component: {fileID: 1716223793}
   - component: {fileID: 1716223792}
   - component: {fileID: 1716223791}
+  - component: {fileID: 1716223795}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -11844,12 +11965,29 @@ Transform:
   m_GameObject: {fileID: 1716223790}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.63, z: 24.29}
-  m_LocalScale: {x: 8.156072, y: 8.530449, z: 1}
+  m_LocalPosition: {x: 0, y: 5.25, z: 24.5}
+  m_LocalScale: {x: 8.5, y: 8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1716223795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716223790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a132ae77e077ac4ea0d723f239f7ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveObjBehavior
+  moveAmount: {x: 0, y: 6, z: 0}
+  moveDuration: 3
+  retrigger: 0
+  active: 0
+  canTrigger: 1
 --- !u!43 &1760387323
 Mesh:
   m_ObjectHideFlags: 0
