@@ -18,6 +18,16 @@ public class FPMovement : MonoBehaviour
 
     CharacterController controller;
 
+    [Header("Dash")]
+    //public bool dash;
+    public float dashTime;
+    public float dashLength = 0.1f;
+    public float dashSpeed = 50f;
+    public float dashCooldownLength = 1f;
+    public float dashCooldown = 0f;
+
+    public Vector3 dashDirection;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,6 +41,7 @@ public class FPMovement : MonoBehaviour
         float moveX = h * speed;
         float moveZ = v * speed;
         Vector3 movement = new Vector3(moveX, 0, moveZ);
+        
 
         movement = Vector3.ClampMagnitude(movement, speed);
 
@@ -47,6 +58,22 @@ public class FPMovement : MonoBehaviour
 
         movement *= Time.deltaTime;
         movement = transform.TransformDirection(movement);
+
+        // OVERRIDE: Dash
+        // If dashing, override directional movement
+        if (dashTime > 0)
+        {
+            movement = dashDirection * dashSpeed;
+            movement *= Time.deltaTime;
+            dashTime -= Time.deltaTime;
+        }
+        // If not dashing, decrement cooldown
+        else if (dashCooldown > 0)
+            dashCooldown -= Time.deltaTime;
+        {
+            
+        }
+
         controller.Move(movement);
     }
 
@@ -72,6 +99,25 @@ public class FPMovement : MonoBehaviour
             }
         }
        
+    }
+    public void Dash(InputAction.CallbackContext ctx)
+    {
+        // flip dash
+        if (ctx.performed)
+        {
+            if (dashCooldown <= 0)
+            {
+                dashTime = dashLength;
+                dashCooldown = dashCooldownLength;
+                // Set dash direction to where player was moving
+                if(v != 0 || h != 0)
+                    dashDirection = transform.TransformDirection(new Vector3(h, 0, v).normalized);
+                // If no direction being held, default to forwards
+                else
+                    dashDirection = transform.TransformDirection(new Vector3(0, 0, 1));
+                
+            }
+        }
     }
     bool IsGrounded()
     {

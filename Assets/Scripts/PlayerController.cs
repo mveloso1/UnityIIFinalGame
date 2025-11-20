@@ -1,6 +1,6 @@
-using System.Collections.Specialized;
-using System.Security.Cryptography;
-using System.Threading;
+//using System.Collections.Specialized;
+//using System.Security.Cryptography;
+//using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     Vector2 moveInput;
     Vector3 velocity;
+
 
     [SerializeField] Transform cameraTransform;
 
@@ -25,12 +26,18 @@ public class PlayerController : MonoBehaviour
     private float groundCheckDistance = 0.1f;
     private bool isGrounded = false;
 
+    [Header("Dash Variables")]
+    [SerializeField] float dashCooldownTime, dashLength, dashSpeed;
+    public bool dash;
+    float dashCooldown, dashTime;
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         jumpsRemaining = totalJumps;
+        dashCooldown = 0f;
+        dashTime = 0f;
     }
 
     // Update is called once per frame
@@ -46,21 +53,6 @@ public class PlayerController : MonoBehaviour
             velocity.y = 0f;
         }
 
-
-        //Plain Jump 
-        //if (isGrounded && velocity.y <= 0)
-        //{
-        //    jumpsRemaining = totalJumps;
-        //    isJumping = false;
-        //    velocity.y = 0f;
-
-        //}
-        //else
-        //{
-        //    velocity.y += Physics.gravity.y * Time.deltaTime;
-        //}
-
-
         //Movement Code
         Vector3 camForward = cameraTransform.forward;
         Vector3 camRight = cameraTransform.right;
@@ -69,7 +61,12 @@ public class PlayerController : MonoBehaviour
         camForward.Normalize();
         camRight.Normalize();
 
+
         Vector3 desiredMovementDirection = camForward * moveInput.y + camRight * moveInput.x;
+        // DASH OVERRIDE
+        if (dash)
+            desiredMovementDirection = camForward + camRight;
+        
         desiredMovementDirection.Normalize();
 
         if (desiredMovementDirection.sqrMagnitude > 0.01f)
@@ -108,11 +105,11 @@ public class PlayerController : MonoBehaviour
         transform.position += new Vector3(0, velocity.y * Time.deltaTime, 0);
     }
 
-    public void OnMove(InputValue value)
-    {
-        moveInput = value.Get<Vector2>();
-        Debug.Log($"Message event : {moveInput}");
-    }
+    //public void OnMove(InputValue value)
+    //{
+    //    moveInput = value.Get<Vector2>();
+    //    Debug.Log($"Message event : {moveInput}");
+    //}
 
     public void MovePlayer(InputAction.CallbackContext ctx) 
     {

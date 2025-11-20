@@ -3,7 +3,7 @@ using UnityEngine;
 public class ColliderTrigger : MonoBehaviour
 {
     public string triggerTag = "";
-    public GameObject[] triggerObj;
+    //public GameObject[] triggerObj;
     public BehaviorScript behaviorScript;
 
     private void OnTriggerEnter(Collider other)
