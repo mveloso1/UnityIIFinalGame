@@ -3,7 +3,8 @@ using UnityEngine;
 public class BehaviorScript : MonoBehaviour
 {
     [Header("Accepted Triggers")]
-    public bool playerInteract, playerShot;
+    public bool playerInteract;
+    public bool playerShot;
 
     [Header("Trigger Scripts")]
     [SerializeField] RemoveObjBehavior removeObjScript;

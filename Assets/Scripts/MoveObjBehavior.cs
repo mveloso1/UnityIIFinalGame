@@ -22,7 +22,6 @@ public class MoveObjBehavior : MonoBehaviour
             moveTime += Time.deltaTime;
             if( moveTime < moveDuration )
                 transform.position = Vector3.Lerp(startPos, endPos, moveTime/moveDuration);
-            
             else
             {
                 transform.position = endPos;
