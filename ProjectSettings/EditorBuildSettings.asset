@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PlatformRoom.unity
     guid: e66b6c0543cad2348846e6d0b4968a5a
   - enabled: 1
+    path: Assets/Scenes/EscapeRoom.unity
+    guid: 3f18fae6bdd525e4a99f542c4489ee98
+  - enabled: 1
     path: Assets/Scenes/Win.unity
     guid: 77a611a76f9fc524c9407c40ed2c0144
   - enabled: 1
