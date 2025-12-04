@@ -32,11 +32,13 @@ public class KeypadScript : MonoBehaviour
             if(enteredpassword == password)
             {
                 keypadDisplay.text = "Correct Passcode";
-                playerCamera.enabled = false;
-                cutSceneCamera.enabled = true;
-                Destroy(escapePodStand);
-                escapePod.GetComponent<BoxCollider>().enabled = false;
-                StartCoroutine(loadEnd());
+                //playerCamera.enabled = false;
+                //cutSceneCamera.enabled = true;
+                //Destroy(escapePodStand);
+                //escapePod.GetComponent<BoxCollider>().enabled = false;
+                //StartCoroutine(loadEnd());
+
+
                 
 
             }
