@@ -17,6 +17,9 @@ public class KeypadScript : MonoBehaviour
     public Camera cutSceneCamera;
     public Camera playerCamera;
 
+    public Animator LeftDoorOpen;
+    public Animator RightDoorOpen;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -37,9 +40,11 @@ public class KeypadScript : MonoBehaviour
                 //Destroy(escapePodStand);
                 //escapePod.GetComponent<BoxCollider>().enabled = false;
                 //StartCoroutine(loadEnd());
+                LeftDoorOpen.SetTrigger("OpenDoor");
+                RightDoorOpen.SetTrigger("OpenDoor");
 
 
-                
+
 
             }
             else
