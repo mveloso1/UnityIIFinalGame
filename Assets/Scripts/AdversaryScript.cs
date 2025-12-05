@@ -60,8 +60,8 @@ public class AdversaryScript : MonoBehaviour
             if(Vector3.Distance(transform.position, agent.destination) < 1f)
             {
                 state = "Shoot";
-                agent.speed = 0.05f;
-                agent.angularSpeed *= 500;
+                agent.speed = 0f;
+                //agent.angularSpeed *= 1000;
                 // Timer for shooting projectile
                 stateTimer = 3f;
             }
@@ -69,7 +69,10 @@ public class AdversaryScript : MonoBehaviour
         else if (state == "Shoot")
         {
             // Point towards player
-            agent.SetDestination(player.position);
+            //agent.SetDestination(player.position);
+            Vector3 temp = Vector3.RotateTowards(transform.position, new Vector3(player.position.x, transform.position.y, player.position.z), Time.deltaTime * 2, 0);
+            temp.y = 0f;
+            transform.rotation = Quaternion.LookRotation(temp, Vector3.up);
 
 
             agent.updateRotation = true;
@@ -81,7 +84,7 @@ public class AdversaryScript : MonoBehaviour
             if(stateTimer < 0)
             {
                 // Fire projectile
-                GameObject proj = Instantiate(projectilePrefab, transform.position + Vector3.up, transform.rotation);
+                GameObject proj = Instantiate(projectilePrefab, transform.position, transform.rotation);
                 
                 stateTimer = 5f;
                 state = "Chase";

@@ -3,6 +3,7 @@ using UnityEngine;
 public class AdversaryProjectileScript : MonoBehaviour
 {
     Rigidbody rb;
+    public float projectileDamage = 10f;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -21,10 +22,10 @@ public class AdversaryProjectileScript : MonoBehaviour
         {
             // Damage player
             Debug.Log("DAMAGED PLAYER");
-            //other.GetComponent<>
+            other.GetComponent<PlayerHealth>().TakeDamage(projectileDamage);
         }
-        //if(! other.CompareTag("Enemy"))
-        //Destroy(gameObject);
+        if(!other.CompareTag("Enemy"))
+            Destroy(gameObject);
     }
 
 }
