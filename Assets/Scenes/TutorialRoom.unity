@@ -1604,7 +1604,7 @@ GameObject:
   - component: {fileID: 413293472}
   - component: {fileID: 413293473}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: PickupCube
   m_TagString: PickupItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1656,7 +1656,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5712b907f76af264fa6c6afe2bcec30f, type: 2}
+  - {fileID: 2100000, guid: 2f372f49670c0874d89bff751c8628cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14841,7 +14841,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b54659566fa9ca94c8591a3c21196408, type: 2}
+  - {fileID: 2100000, guid: 2f372f49670c0874d89bff751c8628cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
