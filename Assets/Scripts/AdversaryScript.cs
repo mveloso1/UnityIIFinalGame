@@ -10,7 +10,7 @@ public class AdversaryScript : MonoBehaviour
 
     public GameObject projectilePrefab;
     //public bool charge = true;
-    public float turnSpeed = 12f;
+    public float turnSpeed;
 
     public Transform[] waypoints;
 
@@ -18,6 +18,8 @@ public class AdversaryScript : MonoBehaviour
     public float stateTimer;
 
     public float moveSpeed;
+
+    public Animator modelAnimator;
     //public float overshootAccel = 5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,6 +28,7 @@ public class AdversaryScript : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         state = "Chase";
         stateTimer = 3f;
+        turnSpeed = agent.angularSpeed;
         moveSpeed = agent.speed;
     }
 
@@ -46,12 +49,23 @@ public class AdversaryScript : MonoBehaviour
             // Decrease time to firing projectile
             else stateTimer -= Time.deltaTime;
             // If timer is up, prepare to shoot projectile
-            if(stateTimer < 0)
+
+            // TEST
+            Vector3 velocity = agent.velocity;
+            if (velocity.sqrMagnitude > 0.01f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(velocity.normalized);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            }
+
+
+
+            if (stateTimer < 0)
             {
                 state = "PrepareShoot";
                 agent.SetDestination(ChooseWaypoint());
                 
-                agent.speed = moveSpeed * 1.5f;
+                //agent.speed = moveSpeed * 1.5f;
             }
         }
         else if (state == "PrepareShoot")
@@ -70,7 +84,7 @@ public class AdversaryScript : MonoBehaviour
         {
             // Point towards player
             //agent.SetDestination(player.position);
-            Vector3 temp = Vector3.RotateTowards(transform.position, new Vector3(player.position.x, transform.position.y, player.position.z), Time.deltaTime * 2, 0);
+            Vector3 temp = Vector3.RotateTowards(transform.position, new Vector3(player.position.x, transform.position.y, player.position.z), Time.deltaTime / 4, 0);
             temp.y = 0f;
             transform.rotation = Quaternion.LookRotation(temp, Vector3.up);
 
@@ -92,8 +106,9 @@ public class AdversaryScript : MonoBehaviour
                 agent.angularSpeed = turnSpeed;
             }
         }
-        
 
+        // Animation
+        modelAnimator.SetFloat("Moving", agent.velocity.sqrMagnitude);
     }
 
     private Vector3 ChooseWaypoint()
