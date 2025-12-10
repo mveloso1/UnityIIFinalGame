@@ -8,6 +8,7 @@ TagManager:
   - Lava
   - Exit
   - Enemy
+  - WallButton
   layers:
   - Default
   - TransparentFX

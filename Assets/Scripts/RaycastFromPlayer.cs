@@ -18,6 +18,11 @@ public class RaycastFromPlayer : MonoBehaviour
     private AudioSource audioSource;
 
     MeshRenderer hitObj;
+
+    //These are only for the tutorial areas ONLY
+    public GameObject wallButtonMessageBox;
+    public GameObject pickupMessageBox;
+
     //public GameObject bow;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,24 +37,40 @@ public class RaycastFromPlayer : MonoBehaviour
 
         //// Make pickup item glow if possible
         //Debug.DrawRay(transform.position, transform.forward * raycastDistance, Color.green);
-        //RaycastHit hit;
-        //if (Physics.Raycast(transform.position, transform.forward, out hit, 3.0f))
-        //{
-        //    if (hit.collider.tag == "PickupItem" && !holdingItem)
-        //    {
-        //        hitObj = hit.collider.GetComponent<MeshRenderer>();
-        //        hitObj.materials[1].SetFloat("_Scale", 1.03f);
-        //    }
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 3.0f))
+        {
+            if (hit.collider.tag == "PickupItem" && !holdingItem) // for regular pickup items
+            {
+               hitObj = hit.collider.GetComponent<MeshRenderer>();
+               hitObj.materials[1].SetFloat("_Scale", 1.03f);
+               pickupMessageBox.SetActive(true);
+            }
+            if (hit.collider.tag == "WallButton") // for tutorial room only
+            {
+                hitObj = hit.collider.GetComponent<MeshRenderer>();
+                hitObj.materials[1].SetFloat("_Scale", 1.03f);
+                wallButtonMessageBox.SetActive(true);
+            }
 
-        //}
-        //else // Remove glow when not not hovered over
-        //{
-        //    if (hitObj != null)
-        //    {
-        //        hitObj.materials[1].SetFloat("_Scale", 1.0f);
-        //        hitObj = null;
-        //    }
-        //}
+
+        }
+        else // Remove glow when not not hovered over
+        {
+            if (hitObj != null)
+            {
+                hitObj.materials[1].SetFloat("_Scale", 1.0f);
+                hitObj = null;
+                if (wallButtonMessageBox.activeSelf)
+                {
+                    wallButtonMessageBox.SetActive(false);
+                }
+                if (pickupMessageBox.activeSelf)
+                {
+                    pickupMessageBox.SetActive(false);
+                }
+            }
+        }
 
     }
 
