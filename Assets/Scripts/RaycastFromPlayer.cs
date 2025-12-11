@@ -19,6 +19,7 @@ public class RaycastFromPlayer : MonoBehaviour
 
     public AudioClip puzzleSolve;
     private AudioSource audioSource;
+    public AudioClip pickupItem;
 
     MeshRenderer hitObj;
 
@@ -99,6 +100,7 @@ public class RaycastFromPlayer : MonoBehaviour
                     hit.collider.GetComponent<PickupObj>().Pickup();
                     heldObj = hit.collider.gameObject;
                     holdingItem = true;
+                    audioSource.PlayOneShot(pickupItem);
                 }
             }
         }
