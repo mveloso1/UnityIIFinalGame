@@ -61,7 +61,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "New action",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "b7dac906-d4f4-4df2-9d89-b1ecd3f226cf",
                     "expectedControlType": "",
@@ -327,11 +327,11 @@
                 {
                     "name": "",
                     "id": "431c1d01-6f0b-4099-bf76-abd9d23418b3",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

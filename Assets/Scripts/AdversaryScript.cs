@@ -16,6 +16,8 @@ public class AdversaryScript : MonoBehaviour
 
     public string state;
     public float stateTimer;
+    float attackTimer = 0f;
+    float attackLength = 53f / 30f + 7f/30f;
 
     public float moveSpeed;
 
@@ -36,18 +38,31 @@ public class AdversaryScript : MonoBehaviour
     void Update()
     {
         // Chase after player
-        if (state == "Chase")
+        if (state == "Chase" || state == "Attacking")
         {
             // 
             agent.SetDestination(player.position);
-            
+
             // If close to player, perform melee attack
-            if (Vector3.Distance(transform.position, player.position) < 1)
+            //if (state == "Attacking")
+            //{
+            //    if (attackTimer > 0f)
+            //        attackTimer -= Time.deltaTime;
+            //    else
+            //        state = "Chase";
+            //}
+            if (Vector3.Distance(transform.position, player.position) < 3f)
             {
-                // Attack
+                modelAnimator.SetBool("Attacking", true);
+                //state = "Attacking";
+                //attackTimer = attackLength;
             }
             // Decrease time to firing projectile
-            else stateTimer -= Time.deltaTime;
+            else
+            {
+                stateTimer -= Time.deltaTime;
+                modelAnimator.SetBool("Attacking", false);
+            }
             // If timer is up, prepare to shoot projectile
 
             // TEST
@@ -106,9 +121,12 @@ public class AdversaryScript : MonoBehaviour
                 agent.angularSpeed = turnSpeed;
             }
         }
+        //else if (state == "Attacking")
+        //{
 
-        // Animation
-        modelAnimator.SetFloat("Moving", agent.velocity.sqrMagnitude);
+        //}
+            // Animation
+            modelAnimator.SetFloat("Moving", agent.velocity.sqrMagnitude);
     }
 
     private Vector3 ChooseWaypoint()

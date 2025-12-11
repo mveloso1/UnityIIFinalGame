@@ -9,6 +9,8 @@ public class RaycastFromPlayer : MonoBehaviour
     public float raycastDistance = 5.0f;
     bool holdingItem = false;
     GameObject heldObj;
+    float cooldown;
+    public float cooldownLength;
 
     
     public Animator templeDoor;
@@ -30,11 +32,13 @@ public class RaycastFromPlayer : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        cooldown = cooldownLength;
     }
 
     // Update is called once per frame
     void Update()
     {
+        cooldown -= Time.deltaTime;
 
         //// Make pickup item glow if possible
         //Debug.DrawRay(transform.position, transform.forward * raycastDistance, Color.green);
@@ -139,6 +143,26 @@ public class RaycastFromPlayer : MonoBehaviour
             //    bow.SetActive(true);
             //}
         
+        }
+    }
+
+    public void ShootBow(InputAction.CallbackContext ctx)
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 40f))
+        {
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                // Cooldown if statement
+                if(cooldown <= 0f)
+                {
+                    hit.collider.GetComponent<EnemyHealth>().TakeDamage(5f);
+                    cooldown = cooldownLength;
+                }
+            }
+            //else
+                //Debug.Log(hit.collider.name + " was hit, did not trigger!");
         }
     }
 }

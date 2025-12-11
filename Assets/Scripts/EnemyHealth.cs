@@ -8,6 +8,7 @@ public class EnemyHealth : MonoBehaviour
     public GameObject healthBarObj;
     public float enemyHealth = 100;
     public float currentHealth;
+    public GameObject portal;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,6 +34,8 @@ public class EnemyHealth : MonoBehaviour
     {
         Destroy(healthBarObj);
         Destroy(gameObject);
-        SceneManager.LoadScene(2);
+        portal.SetActive(true);
+        //SceneManager.LoadScene(2);
+
     }
 }
