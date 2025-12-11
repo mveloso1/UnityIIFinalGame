@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 public class RaycastFromPlayer : MonoBehaviour
@@ -40,11 +41,17 @@ public class RaycastFromPlayer : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, 3.0f))
         {
+            Scene currentScene = SceneManager.GetActiveScene(); 
+
             if (hit.collider.tag == "PickupItem" && !holdingItem) // for regular pickup items
             {
                hitObj = hit.collider.GetComponent<MeshRenderer>();
                hitObj.materials[1].SetFloat("_Scale", 1.03f);
-               pickupMessageBox.SetActive(true);
+
+                if (currentScene.name == "TutorialRoom")
+                {
+                    pickupMessageBox.SetActive(true); // only displays in tutorial room
+                }
             }
             if (hit.collider.tag == "WallButton") // for tutorial room only
             {
@@ -67,7 +74,7 @@ public class RaycastFromPlayer : MonoBehaviour
                 }
                 if (pickupMessageBox.activeSelf)
                 {
-                    pickupMessageBox.SetActive(false);
+                    pickupMessageBox.SetActive(false); 
                 }
             }
         }
