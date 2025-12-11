@@ -18,8 +18,8 @@ public class LavaDeath : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Lava"))
         {
-
-            SceneManager.LoadScene(1);
+            //reloads the scene
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         }
     }
