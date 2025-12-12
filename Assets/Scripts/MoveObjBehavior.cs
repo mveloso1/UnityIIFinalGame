@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoveObjBehavior : MonoBehaviour
@@ -9,10 +10,14 @@ public class MoveObjBehavior : MonoBehaviour
     private float moveTime;
     public bool retrigger, active, canTrigger;
 
+    public AudioClip moveStone;
+    private AudioSource audioSource;
+
     private void Start()
     {
         startPos = transform.position;
         endPos = startPos + moveAmount;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -41,6 +46,7 @@ public class MoveObjBehavior : MonoBehaviour
 
     public bool MoveObj()
     {
+        audioSource.PlayOneShot(moveStone);
         bool triggerStatus = canTrigger;
         if (canTrigger)
         {
@@ -49,5 +55,6 @@ public class MoveObjBehavior : MonoBehaviour
         }
         canTrigger = false;
         return triggerStatus;
+
     }
 }

@@ -6,13 +6,18 @@ public class PlanetPuzzleController : MonoBehaviour
     public PlanetPuzzleTrigger earthTrigger, mercuryTrigger, moonTrigger, sunTrigger;
     public MoveObjBehavior doorMove;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
+    private bool hasActivated = false;   
+
     void Update()
     {
-        if(earthTrigger.triggerActive && mercuryTrigger.triggerActive && moonTrigger.triggerActive && sunTrigger.triggerActive)
+        if (!hasActivated &&
+            earthTrigger.triggerActive &&
+            mercuryTrigger.triggerActive &&
+            moonTrigger.triggerActive &&
+            sunTrigger.triggerActive)
         {
-            doorMove.MoveObj();
+            hasActivated = true;          
+            doorMove.MoveObj();           
         }
     }
 }
