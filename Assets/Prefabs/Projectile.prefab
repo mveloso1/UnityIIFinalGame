@@ -4964,7 +4964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf60aeaec71d764e893401be823f3fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdversaryProjectileScript
-  projectileDamage: 10
+  projectileDamage: 20
 --- !u!54 &4472416901904723364
 Rigidbody:
   m_ObjectHideFlags: 0
