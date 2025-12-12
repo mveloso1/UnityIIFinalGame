@@ -1010,7 +1010,7 @@ NavMeshAgent:
   m_Acceleration: 12
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1160,14 +1160,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285726930}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97df09aac5aa30e4a9dcb487412584fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
-  attackTransform: {fileID: 285726935}
-  attackRadius: 0
-  attackDamage: 10
+  attackTransform: {fileID: 1112680571}
+  attackRadius: 0.3
+  attackDamage: 15
+  attackEnabled: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -3562,6 +3563,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1112680571 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6502182839619065283, guid: 811f0cc303955f448bdfad8087550587, type: 3}
+  m_PrefabInstance: {fileID: 1458524641}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1168917233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3679,6 +3685,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1316822499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316822496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97df09aac5aa30e4a9dcb487412584fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
+  attackTransform: {fileID: 1112680571}
+  attackRadius: 0.3
+  attackDamage: 15
+  attackEnabled: 0
 --- !u!43 &1328389743
 Mesh:
   m_ObjectHideFlags: 0
@@ -8899,6 +8921,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 811f0cc303955f448bdfad8087550587, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1316822498}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 811f0cc303955f448bdfad8087550587, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1316822499}
   m_SourcePrefab: {fileID: 100100000, guid: 811f0cc303955f448bdfad8087550587, type: 3}
 --- !u!1 &1542385381
 GameObject:

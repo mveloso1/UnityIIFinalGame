@@ -6,19 +6,29 @@ public class EnemyAttack : MonoBehaviour
     public Transform attackTransform;
     public float attackRadius;
     public float attackDamage = 10.0f;
+    public bool attackEnabled = false;
 
-    public void Attack()
+    void Update()
     {
-        Collider[] attackHits = Physics.OverlapSphere(attackTransform.position, attackRadius);
-
-        foreach (var attackHit in attackHits)
+        if (attackEnabled)
         {
-            if (attackHit.gameObject.CompareTag("Player"))
+            Collider[] attackHits = Physics.OverlapSphere(attackTransform.position, attackRadius);
+
+            foreach (var attackHit in attackHits)
             {
-                attackHit.GetComponent<PlayerHealth>().TakeDamage(attackDamage);
+                if (attackHit.gameObject.CompareTag("Player"))
+                {
+                    attackHit.GetComponent<PlayerHealth>().TakeDamage(attackDamage);
+                    attackEnabled = false;
+                }
             }
         }
     }
+
+    public void AttackOn()
+        { attackEnabled = true; }
+    public void AttackOff()
+        { attackEnabled = false; }
 
     private void OnDrawGizmos()
     {
