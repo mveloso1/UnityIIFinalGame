@@ -20,6 +20,7 @@ public class RaycastFromPlayer : MonoBehaviour
     public AudioClip puzzleSolve;
     private AudioSource audioSource;
     public AudioClip pickupItem;
+    public AudioClip bowShot;
 
     MeshRenderer hitObj;
 
@@ -151,7 +152,7 @@ public class RaycastFromPlayer : MonoBehaviour
     public void ShootBow(InputAction.CallbackContext ctx)
     {
         RaycastHit hit;
-
+        audioSource.PlayOneShot(bowShot);
         if (Physics.Raycast(transform.position, transform.forward, out hit, 40f))
         {
             if (hit.collider.CompareTag("Enemy"))
