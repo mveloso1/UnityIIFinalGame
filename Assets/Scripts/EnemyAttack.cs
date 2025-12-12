@@ -8,6 +8,8 @@ public class EnemyAttack : MonoBehaviour
     public float attackDamage = 10.0f;
     public bool attackEnabled = false;
 
+    public GameObject projectilePrefab;
+
     void Update()
     {
         if (attackEnabled)
@@ -29,6 +31,11 @@ public class EnemyAttack : MonoBehaviour
         { attackEnabled = true; }
     public void AttackOff()
         { attackEnabled = false; }
+    public void ShootFireball()
+    {
+        GameObject proj = Instantiate(projectilePrefab, transform.parent.position, transform.parent.rotation);
+    }
+
 
     private void OnDrawGizmos()
     {

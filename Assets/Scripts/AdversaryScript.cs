@@ -29,7 +29,8 @@ public class AdversaryScript : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         state = "Chase";
-        stateTimer = 3f;
+        stateTimer = 5f;
+        
         turnSpeed = agent.angularSpeed;
         moveSpeed = agent.speed;
     }
@@ -51,7 +52,7 @@ public class AdversaryScript : MonoBehaviour
             //    else
             //        state = "Chase";
             //}
-            if (Vector3.Distance(transform.position, player.position) < 3f)
+            if (Vector3.Distance(transform.position, player.position) < 1f)
             {
                 modelAnimator.SetBool("Attacking", true);
                 //state = "Attacking";
@@ -69,11 +70,9 @@ public class AdversaryScript : MonoBehaviour
             Vector3 velocity = agent.velocity;
             if (velocity.sqrMagnitude > 0.01f)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(velocity.normalized);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+                //Quaternion targetRotation = Quaternion.LookRotation(velocity.normalized);
+                //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
             }
-
-
 
             if (stateTimer < 0)
             {
@@ -86,34 +85,30 @@ public class AdversaryScript : MonoBehaviour
         else if (state == "PrepareShoot")
         {
             // If at waypoint, begin to shoot projectile
-            if(Vector3.Distance(transform.position, agent.destination) < 2.1f)
+            if(Vector3.Distance(transform.position, agent.destination) < 2f)
             {
                 state = "Shoot";
                 agent.speed = 0f;
+                agent.velocity = Vector3.zero;
+                modelAnimator.SetTrigger("Magic");
                 //agent.angularSpeed *= 1000;
                 // Timer for shooting projectile
-                stateTimer = 3f;
+                stateTimer = 2f;
             }
         }
         else if (state == "Shoot")
         {
             // Point towards player
-            //agent.SetDestination(player.position);
-            Vector3 temp = Vector3.RotateTowards(transform.position, new Vector3(player.position.x, transform.position.y, player.position.z), Time.deltaTime / 4, 1);
+            agent.SetDestination(player.position);
+            Vector3 temp = Vector3.RotateTowards(transform.position, new Vector3(player.position.x, transform.position.y, player.position.z), 20f, 99f);
             temp.y = 0f;
             transform.rotation = Quaternion.LookRotation(temp, Vector3.up);
-
-
-            agent.updateRotation = true;
-            //Vector3 temp = Vector3.RotateTowards(transform.position, player.position, 2, 0);
-            //transform.Rotate(new Vector3(0f, temp.y, 0f));
-
 
             stateTimer -= Time.deltaTime;
             if(stateTimer < 0)
             {
                 // Fire projectile
-                GameObject proj = Instantiate(projectilePrefab, transform.position, transform.rotation);
+                //GameObject proj = Instantiate(projectilePrefab, transform.position, transform.rotation);
                 
                 stateTimer = 5f;
                 state = "Chase";
@@ -121,10 +116,6 @@ public class AdversaryScript : MonoBehaviour
                 agent.angularSpeed = turnSpeed;
             }
         }
-        //else if (state == "Attacking")
-        //{
-
-        //}
             // Animation
             modelAnimator.SetFloat("Moving", agent.velocity.sqrMagnitude);
     }
@@ -136,7 +127,7 @@ public class AdversaryScript : MonoBehaviour
         foreach (Transform t in waypoints)
         {
             if(Vector3.Distance(t.position, transform.position) < dist)
-                if(Vector3.Distance(t.position, player.position) < 9)
+                if(Vector3.Distance(t.position, player.position) > 5)
                 {
                     dist = Vector3.Distance(t.position, transform.position);
                     target = t.position;

@@ -987,7 +987,6 @@ GameObject:
   - component: {fileID: 285726932}
   - component: {fileID: 285726931}
   - component: {fileID: 285726936}
-  - component: {fileID: 285726938}
   - component: {fileID: 285726937}
   m_Layer: 0
   m_Name: Enemy
@@ -1153,22 +1152,6 @@ MonoBehaviour:
   enemyHealth: 100
   currentHealth: 0
   portal: {fileID: 185189155}
---- !u!114 &285726938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285726930}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97df09aac5aa30e4a9dcb487412584fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
-  attackTransform: {fileID: 1112680571}
-  attackRadius: 0.3
-  attackDamage: 15
-  attackEnabled: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -3701,6 +3684,7 @@ MonoBehaviour:
   attackRadius: 0.3
   attackDamage: 15
   attackEnabled: 0
+  projectilePrefab: {fileID: 5163851320818337933, guid: 66018be411c0381459980ce0f5861fec, type: 3}
 --- !u!43 &1328389743
 Mesh:
   m_ObjectHideFlags: 0
@@ -9396,7 +9380,7 @@ MonoBehaviour:
   m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1790447416
