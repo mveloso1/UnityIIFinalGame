@@ -20,11 +20,15 @@ public class KeypadScript : MonoBehaviour
     public Animator LeftDoorOpen;
     public Animator RightDoorOpen;
 
+    public AudioClip bigDoor;
+    private AudioSource audioSource;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         passDigits = password.Length;
         keypadDisplay.text = "Enter Code";
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -40,6 +44,7 @@ public class KeypadScript : MonoBehaviour
                 //Destroy(escapePodStand);
                 //escapePod.GetComponent<BoxCollider>().enabled = false;
                 //StartCoroutine(loadEnd());
+                OneShotAudio.PlayClip(bigDoor, transform.position);
                 LeftDoorOpen.SetTrigger("OpenDoor");
                 RightDoorOpen.SetTrigger("OpenDoor");
 
