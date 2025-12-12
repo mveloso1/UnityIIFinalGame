@@ -14588,6 +14588,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -2.93
       objectReference: {fileID: 0}
+    - target: {fileID: 4178656134359458632, guid: 6bcdae653217cd7449cc1d16d3526229, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.31
+      objectReference: {fileID: 0}
     - target: {fileID: 5503166992987660084, guid: 6bcdae653217cd7449cc1d16d3526229, type: 3}
       propertyPath: m_Name
       value: Spruce 8 (11)
