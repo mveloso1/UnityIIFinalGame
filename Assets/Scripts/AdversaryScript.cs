@@ -100,7 +100,7 @@ public class AdversaryScript : MonoBehaviour
         {
             // Point towards player
             agent.SetDestination(player.position);
-            Vector3 temp = Vector3.RotateTowards(transform.position, new Vector3(player.position.x, transform.position.y, player.position.z), 1f, 5f);
+            Vector3 temp = Vector3.RotateTowards(transform.position, new Vector3(player.position.x, transform.position.y, player.position.z), 2f, 5f);
             temp.y = 0f;
             transform.rotation = Quaternion.LookRotation(temp, Vector3.up);
 
