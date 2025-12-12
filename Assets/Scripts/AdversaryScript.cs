@@ -86,7 +86,7 @@ public class AdversaryScript : MonoBehaviour
         else if (state == "PrepareShoot")
         {
             // If at waypoint, begin to shoot projectile
-            if(Vector3.Distance(transform.position, agent.destination) < 1f)
+            if(Vector3.Distance(transform.position, agent.destination) < 2.1f)
             {
                 state = "Shoot";
                 agent.speed = 0f;
@@ -99,7 +99,7 @@ public class AdversaryScript : MonoBehaviour
         {
             // Point towards player
             //agent.SetDestination(player.position);
-            Vector3 temp = Vector3.RotateTowards(transform.position, new Vector3(player.position.x, transform.position.y, player.position.z), Time.deltaTime / 4, 0);
+            Vector3 temp = Vector3.RotateTowards(transform.position, new Vector3(player.position.x, transform.position.y, player.position.z), Time.deltaTime / 4, 1);
             temp.y = 0f;
             transform.rotation = Quaternion.LookRotation(temp, Vector3.up);
 
