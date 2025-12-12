@@ -31,6 +31,6 @@ public class PlayerHealth : MonoBehaviour
 
     void PlayerDead()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

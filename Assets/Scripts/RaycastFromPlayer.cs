@@ -152,7 +152,6 @@ public class RaycastFromPlayer : MonoBehaviour
     public void ShootBow(InputAction.CallbackContext ctx)
     {
         RaycastHit hit;
-        audioSource.PlayOneShot(bowShot);
         if (Physics.Raycast(transform.position, transform.forward, out hit, 40f))
         {
             if (hit.collider.CompareTag("Enemy"))
@@ -161,6 +160,7 @@ public class RaycastFromPlayer : MonoBehaviour
                 if(cooldown <= 0f)
                 {
                     hit.collider.GetComponent<EnemyHealth>().TakeDamage(5f);
+                    audioSource.PlayOneShot(bowShot);
                     cooldown = cooldownLength;
                 }
             }
